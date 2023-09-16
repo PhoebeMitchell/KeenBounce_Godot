@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://c4ki5oqxs8hun"]
+
+[ext_resource type="Texture2D" uid="uid://dwlcwxwlolhq" path="res://Sprites/DialogBox.png" id="1_tes46"]
+[ext_resource type="Script" path="res://Scripts/DialogBox.gd" id="2_xmfu0"]
+[ext_resource type="FontFile" uid="uid://b205n5mpq2cg1" path="res://Fonts/vertopal.com_Commander Keen (Medium).ttf" id="3_w38ry"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8kr5h"]
+font = ExtResource("3_w38ry")
+font_size = 20
+font_color = Color(0, 0, 0, 1)
+
+[node name="Node" type="Node"]
+script = ExtResource("2_xmfu0")
+
+[node name="DialogBox" type="Sprite2D" parent="."]
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("1_tes46")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -183.0
+offset_top = -79.0
+offset_right = 62.0
+offset_bottom = 49.0
+text = "You bounced Keen 20 times!
+
+Click to play again!"
+label_settings = SubResource("LabelSettings_8kr5h")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+text_overrun_behavior = 1

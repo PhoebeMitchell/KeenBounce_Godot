@@ -1,0 +1,107 @@
+[gd_scene load_steps=17 format=3 uid="uid://t2y7vm68g2xe"]
+
+[ext_resource type="Script" path="res://Scripts/Keen.gd" id="1_w07d1"]
+[ext_resource type="Script" path="res://Scripts/KeenAudio.gd" id="2_0nghd"]
+[ext_resource type="AudioStream" uid="uid://jgqr5nnykryd" path="res://Audio/DeathSound.mp3" id="3_v50vm"]
+[ext_resource type="Texture2D" uid="uid://b6iy28roomcm" path="res://Sprites/Idle.png" id="4_m65to"]
+[ext_resource type="Script" path="res://Scripts/KeenSprite.gd" id="5_0y83o"]
+[ext_resource type="Texture2D" uid="uid://b6wqr085wqleh" path="res://Sprites/Death1.png" id="6_fewp6"]
+[ext_resource type="Texture2D" uid="uid://iatt46xksqeq" path="res://Sprites/Death2.png" id="7_w6hr2"]
+[ext_resource type="FontFile" uid="uid://b205n5mpq2cg1" path="res://Fonts/vertopal.com_Commander Keen (Medium).ttf" id="8_u35lw"]
+[ext_resource type="Script" path="res://Scripts/ClickMeLabel.gd" id="9_7v0bp"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_hqnra"]
+bounce = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pao60"]
+size = Vector2(100, 100)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_8k8vx"]
+normal = Vector2(-1, 0)
+distance = -250.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_4xghj"]
+normal = Vector2(0, 1)
+distance = -250.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_h0cna"]
+custom_solver_bias = 1.0
+normal = Vector2(1, 0)
+distance = -250.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_bcfwj"]
+font = ExtResource("8_u35lw")
+font_size = 75
+
+[sub_resource type="LabelSettings" id="LabelSettings_twrup"]
+font = ExtResource("8_u35lw")
+font_size = 20
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Keen" type="RigidBody2D" parent="." node_paths=PackedStringArray("label")]
+input_pickable = true
+physics_material_override = SubResource("PhysicsMaterial_hqnra")
+gravity_scale = 0.0
+lock_rotation = true
+script = ExtResource("1_w07d1")
+bump_force = 750.0
+x_bump_scale = 20.0
+game_gravity_scale = 2.0
+label = NodePath("../Counter")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Keen"]
+script = ExtResource("2_0nghd")
+deathSound = ExtResource("3_v50vm")
+
+[node name="Sprite2D" type="Sprite2D" parent="Keen"]
+scale = Vector2(3, 3)
+texture = ExtResource("4_m65to")
+script = ExtResource("5_0y83o")
+sprites = Array[Texture]([ExtResource("6_fewp6"), ExtResource("7_w6hr2")])
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Keen"]
+shape = SubResource("RectangleShape2D_pao60")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Keen"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Walls" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls"]
+shape = SubResource("WorldBoundaryShape2D_8k8vx")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls"]
+shape = SubResource("WorldBoundaryShape2D_4xghj")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Walls"]
+shape = SubResource("WorldBoundaryShape2D_h0cna")
+
+[node name="Counter" type="Label" parent="."]
+offset_left = -25.0
+offset_top = -300.0
+offset_right = 35.0
+offset_bottom = -222.0
+pivot_offset = Vector2(25, 0)
+text = "
+"
+label_settings = SubResource("LabelSettings_bcfwj")
+horizontal_alignment = 1
+
+[node name="Label" type="Label" parent="."]
+offset_left = -50.0
+offset_top = 40.0
+offset_right = 50.0
+offset_bottom = 84.0
+text = "Click me"
+label_settings = SubResource("LabelSettings_twrup")
+script = ExtResource("9_7v0bp")
+
+[connection signal="mouse_entered" from="Keen" to="Keen" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Keen" to="Keen" method="_on_mouse_exited"]
+[connection signal="on_click" from="Keen" to="Keen/AudioStreamPlayer2D" method="_on_keen_on_click"]
+[connection signal="on_click" from="Keen" to="Keen/Sprite2D" method="_on_keen_on_click"]
+[connection signal="on_click" from="Keen" to="Label" method="_on_keen_on_click"]
+[connection signal="visibility_changed" from="Keen" to="Keen" method="_on_visibility_changed"]
+[connection signal="screen_exited" from="Keen/VisibleOnScreenNotifier2D" to="Keen" method="_on_visible_on_screen_notifier_2d_screen_exited"]

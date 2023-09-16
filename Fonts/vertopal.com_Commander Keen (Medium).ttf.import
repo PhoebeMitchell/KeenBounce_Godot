@@ -1,0 +1,33 @@
+[remap]
+
+importer="font_data_dynamic"
+type="FontFile"
+uid="uid://b205n5mpq2cg1"
+path="res://.godot/imported/vertopal.com_Commander Keen (Medium).ttf-cf0842ad22fb31b37a683d8fe23ff3a1.fontdata"
+
+[deps]
+
+source_file="res://Fonts/vertopal.com_Commander Keen (Medium).ttf"
+dest_files=["res://.godot/imported/vertopal.com_Commander Keen (Medium).ttf-cf0842ad22fb31b37a683d8fe23ff3a1.fontdata"]
+
+[params]
+
+Rendering=null
+antialiasing=1
+generate_mipmaps=false
+multichannel_signed_distance_field=false
+msdf_pixel_range=8
+msdf_size=48
+allow_system_fallback=true
+force_autohinter=false
+hinting=1
+subpixel_positioning=1
+oversampling=0.0
+Fallbacks=null
+fallbacks=[]
+Compress=null
+compress=true
+preload=[]
+language_support={}
+script_support={}
+opentype_features={}
